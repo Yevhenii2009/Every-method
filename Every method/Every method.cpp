@@ -19,7 +19,7 @@ int main() {
         cout << "size=" << v.size()
             << " capacity=" << v.capacity() << "\n";
     }
-
+    
     cout << "\nVector contents: ";
     auto vit_print = v.begin();
     while (vit_print != v.end()) {
@@ -47,7 +47,7 @@ int main() {
         else
             ++vit;
     }
-
+  
     cout << "Vector after erase: ";
     vit_print = v.begin();
     while (vit_print != v.end()) {
@@ -55,7 +55,7 @@ int main() {
         ++vit_print;
     }
     cout << "\n\n";
-
+    
     // -------- list --------
     list<int> lst(v.begin(), v.end());
     cout << "Copied to list: ";
@@ -99,5 +99,46 @@ int main() {
         ++dqit;
     }
     cout << "\n\n";
+    // -------- forward_list --------
+    forward_list<int> fl = { 1, 2, 3, 4, 5, 6 };
 
+    cout << "Forward_list before: ";
+    auto fl_print = fl.begin();
+    while (fl_print != fl.end()) {
+        cout << *fl_print << " ";
+        ++fl_print;
+    }
+    cout << "\n";
+    auto prev = fl.before_begin();
+    auto curr = fl.begin();
+
+    while (curr != fl.end()) {
+        if (*curr % 2 != 0)
+            curr = fl.erase_after(prev);
+        else {
+            prev = curr;
+            ++curr;
+        }
+    }
+
+    cout << "Forward_list after erase: ";
+    fl_print = fl.begin();
+    while (fl_print != fl.end()) {
+        cout << *fl_print << " ";
+        ++fl_print;
+    }
+    cout << "\n\n";
+
+    // -------- string --------
+    string text = "hello world";
+    cout << "String before: " << text << "\n";
+
+    auto pos = text.find("world");
+    if (pos != string::npos)
+        text.replace(pos, 5, "STL");
+
+    cout << "String after: " << text << "\n\n";
+
+    return 0;
+}
  
